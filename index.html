@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>قائمة فاست فود — طازج • لذيذ • دائماً</title>
+  <!-- Google Fonts: Cairo & Tajawal for crisp Arabic UI, Caveat for decorative script accents -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Caveat:wght@600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            chalk: {
+              bg: '#121212',
+              surface: '#161616',
+              card: '#181818',
+              cardHover: '#202020',
+              border: '#2d2924',
+              cream: '#f8f5f0',
+              muted: '#bdb5a8',
+              amber: '#f59e0b',
+              gold: '#fbbf24',
+              amberDark: '#b45309'
+            }
+          },
+          fontFamily: {
+            sans: ['"Cairo"', '"Tajawal"', 'system-ui', '-apple-system', 'sans-serif'],
+            script: ['"Caveat"', 'cursive'],
+            display: ['"Cairo"', '"Tajawal"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* Chalkboard & dark aesthetic refinements */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Cairo", "Tajawal", system-ui, -apple-system, sans-serif;
+      background-color: #121212;
+      color: #f8f5f0;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(251, 191, 36, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+    }
+
+    /* Hide scrollbar on horizontal category tabs and horizontal strip */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Highlighter brush badge look inspired by IMG_5060.jpeg */
+    .brush-tag {
+      background: linear-gradient(105deg, #fbbf24 0%, #f59e0b 65%, #d97706 100%);
+      color: #121212;
+      border-radius: 4px 10px 5px 9px;
+      box-shadow: 0 3px 12px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Drawer smooth transitions for RTL */
+    .drawer-backdrop {
+      transition: opacity 0.25s ease;
+    }
+    .drawer-panel {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .drawer-panel.closed {
+      transform: translateX(-100%);
+    }
+    .drawer-panel.open {
+      transform: translateX(0);
+    }
+
+    /* Subtle food thumbnail zoom on hover */
+    .food-img {
+      transition: transform 0.3s ease;
+    }
+    .dish-card:hover .food-img {
+      transform: scale(1.06);
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-28 text-chalk-cream">
+
+  <!-- Top Chalkboard Header with Chef Hat Motif & Arabic/Script Accents -->
+  <header class="relative border-b border-chalk-border bg-chalk-surface/95 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-4 pt-4 pb-5">
+      <!-- Top accents row -->
+      <div class="flex items-center justify-between text-chalk-gold text-xs sm:text-sm font-bold mb-2 select-none">
+        <span class="-rotate-2 inline-block">أكل زوين ♥ مزاج زوين</span>
+        <span class="rotate-2 inline-block font-script text-lg sm:text-xl">Eat • Repeat</span>
+      </div>
+
+      <!-- Center Brand Title & Chef Hat SVG -->
+      <div class="text-center space-y-1.5">
+        <div class="inline-flex items-center justify-center gap-2.5">
+          <!-- Chef Hat SVG Motif -->
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 text-chalk-gold drop-shadow" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 34V39C14 40.6569 15.3431 42 17 42H31C32.6569 42 34 40.6569 34 39V34" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M14 34C10.5 34 8 31.2 8 27.8C8 24.8 10.1 22.3 13 21.7C12.4 20.4 12 18.9 12 17.3C12 11.8 16.5 7.5 22 7.5C23.1 7.5 24.2 7.7 25.2 8.1C26.7 6.8 28.7 6 31 6C36 6 40 10 40 15C40 16.8 39.5 18.5 38.6 19.9C40.7 21.1 42 23.4 42 26C42 30.4 38.4 34 34 34H14Z" fill="rgba(251, 191, 36, 0.14)" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <line x1="15" y1="37.5" x2="33" y2="37.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-wide text-chalk-cream leading-none">
+            قائمة فاست فود
+          </h1>
+        </div>
+
+        <div class="flex items-center justify-center gap-3 text-xs sm:text-sm font-extrabold tracking-widest text-chalk-gold uppercase">
+          <span class="h-px w-8 sm:w-14 bg-chalk-amber/50"></span>
+          <span>— MENU —</span>
+          <span class="h-px w-8 sm:w-14 bg-chalk-amber/50"></span>
+        </div>
+
+        <p class="text-xs sm:text-sm font-bold text-chalk-muted pt-0.5">
+          طازج • لذيذ • دائماً
+        </p>
+
+        <!-- Callout banner -->
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+          <span class="text-sm sm:text-base font-bold text-chalk-amber">ساخن، طازج ولذيذ ♡</span>
+          <span class="text-sm sm:text-base font-bold text-chalk-cream">الحياة أحلى مع الفاست فود</span>
+          <a href="#checkoutSection" class="brush-tag px-4 py-1 text-sm sm:text-base font-extrabold hover:brightness-105 transition">
+            اطلب الآن!
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto px-4 pt-5 space-y-6">
+
+    <!-- Order Type Selector (Delivery vs Pickup) + Delivery Fee Toggle -->
+    <section aria-label="اختيار نوع الطلب" class="bg-chalk-card border border-chalk-border rounded-2xl p-4 shadow-lg">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
+        <div>
+          <h2 class="text-sm sm:text-base font-extrabold text-chalk-gold flex items-center gap-2">
+            <span>🛎️</span>
+            <span>نوع الطلب</span>
+          </h2>
+          <p class="text-xs text-chalk-muted mt-0.5">اختر التوصيل للمنزل (Livraison) أو الاستلام من المحل (À emporter)</p>
+        </div>
+
+        <!-- Delivery Fee Toggle -->
+        <label class="inline-flex items-center gap-2.5 bg-chalk-surface border border-chalk-border rounded-xl px-3 py-2 cursor-pointer select-none self-start sm:self-auto">
+          <input
+            type="checkbox"
+            id="deliveryFeeToggle"
+            checked
+            onchange="handleDeliveryFeeToggle(this.checked)"
+            class="w-4 h-4 accent-amber-500 rounded cursor-pointer"
+          />
+          <span class="text-xs font-bold text-chalk-cream">
+            رسوم التوصيل (<span id="deliveryFeeDisplay" class="text-chalk-gold">150 د.م</span>)
+          </span>
+        </label>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <!-- Delivery Option -->
+        <button
+          type="button"
+          id="btnOrderDelivery"
+          onclick="setOrderType('delivery')"
+          class="p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-amber bg-amber-500/10"
+        >
+          <div>
+            <div class="font-extrabold text-sm sm:text-base text-chalk-cream flex items-center gap-2">
+              <span>🛵</span>
+              <span>التوصيل للمنزل (Livraison)</span>
+            </div>
+            <p id="deliverySubText" class="text-xs text-chalk-muted mt-0.5">توصيل سريع وساخن • + 150 د.م</p>
+          </div>
+          <span id="badgeDelivery" class="w-5 h-5 rounded-full bg-chalk-amber text-chalk-bg text-xs font-extrabold flex items-center justify-center shrink-0">✓</span>
+        </button>
+
+        <!-- Pickup Option -->
+        <button
+          type="button"
+          id="btnOrderPickup"
+          onclick="setOrderType('pickup')"
+          class="p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-border bg-chalk-surface/70 hover:border-chalk-amber/50"
+        >
+          <div>
+            <div class="font-extrabold text-sm sm:text-base text-chalk-cream flex items-center gap-2">
+              <span>🛍️</span>
+              <span>الاستلام من المحل (À emporter)</span>
+            </div>
+            <p class="text-xs text-chalk-muted mt-0.5">بدون رسوم توصيل • 0 د.م</p>
+          </div>
+          <span id="badgePickup" class="w-5 h-5 rounded-full border border-zinc-600 text-transparent text-xs font-extrabold flex items-center justify-center shrink-0">✓</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Category Tabs, Horizontal Layout Mode Toggle & Search Bar -->
+    <section aria-label="تصفية القائمة" class="space-y-4">
+      <div class="flex flex-col gap-3">
+        <!-- Category Filter Tabs -->
+        <div id="categoryTabs" role="tablist" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Horizontal Mode Toggle + Live Search Input -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <!-- Horizontal Mode Switcher -->
+          <div class="inline-flex items-center bg-chalk-card border border-chalk-border rounded-xl p-1 self-start">
+            <button
+              type="button"
+              id="btnModeGrid"
+              onclick="setHorizontalMode('grid')"
+              class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer brush-tag"
+            >
+              صفوف أفقية
+            </button>
+            <button
+              type="button"
+              id="btnModeStrip"
+              onclick="setHorizontalMode('strip')"
+              class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer text-chalk-muted hover:text-chalk-cream"
+            >
+              شريط تمرير أفقي ↔
+            </button>
+          </div>
+
+          <!-- Live Search Input -->
+          <div class="relative w-full sm:w-72 shrink-0">
+            <input
+              type="search"
+              id="searchInput"
+              oninput="handleSearchInput(this.value)"
+              placeholder="ابحث عن برغر، بيتزا، راب، مشروب..."
+              class="w-full bg-chalk-card border border-chalk-border focus:border-chalk-amber focus:ring-2 focus:ring-chalk-amber/25 rounded-xl py-2.5 px-4 text-sm text-chalk-cream placeholder-chalk-muted outline-none transition"
+            />
+            <button
+              type="button"
+              id="btnClearSearch"
+              onclick="clearSearchInput()"
+              aria-label="مسح البحث"
+              class="hidden absolute left-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-chalk-muted hover:text-chalk-gold px-1.5 py-1 cursor-pointer"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal Menu Sections Container -->
+      <div id="menuSectionsContainer" class="space-y-7">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Order Cart & Customer Checkout Form Section -->
+    <section id="checkoutSection" aria-labelledby="checkoutHeading" class="bg-chalk-card border border-chalk-border rounded-2xl p-4 sm:p-6 shadow-xl space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-chalk-border pb-4">
+        <div>
+          <h2 id="checkoutHeading" class="text-lg sm:text-xl font-extrabold text-chalk-gold">
+            سلة الطلب وإتمام الطلب
+          </h2>
+          <p class="text-xs sm:text-sm text-chalk-muted mt-0.5">
+            أدخل معلوماتك وأرسل الطلب مباشرة عبر واتساب إلى <span class="text-chalk-gold font-bold" dir="ltr">0722082326</span>
+          </p>
+        </div>
+        <button
+          type="button"
+          onclick="clearAllCart()"
+          class="text-xs font-bold px-3 py-1.5 rounded-lg bg-red-950/60 hover:bg-red-900/70 text-red-200 border border-red-800/60 transition cursor-pointer"
+        >
+          إفراغ السلة
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Customer Details & General Notes -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="custName" class="block text-xs sm:text-sm font-bold text-chalk-cream mb-1.5">
+                الاسم الكامل <span class="text-chalk-amber">*</span>
+              </label>
+              <input
+                type="text"
+                id="custName"
+                oninput="state.customer.name = this.value; clearFieldError('custName');"
+                placeholder="مثال: ياسين العلوي"
+                class="w-full bg-chalk-surface border border-chalk-border focus:border-chalk-amber focus:ring-2 focus:ring-chalk-amber/20 rounded-xl py-2.5 px-3.5 text-sm text-chalk-cream placeholder-chalk-muted/70 outline-none transition"
+              />
+            </div>
+
+            <div>
+              <label for="custPhone" class="block text-xs sm:text-sm font-bold text-chalk-cream mb-1.5">
+                رقم الهاتف / واتساب <span class="text-chalk-amber">*</span>
+              </label>
+              <input
+                type="tel"
+                id="custPhone"
+                dir="ltr"
+                oninput="state.customer.phone = this.value; clearFieldError('custPhone');"
+                placeholder="06XXXXXXXX"
+                class="w-full bg-chalk-surface border border-chalk-border focus:border-chalk-amber focus:ring-2 focus:ring-chalk-amber/20 rounded-xl py-2.5 px-3.5 text-sm text-chalk-cream placeholder-chalk-muted/70 outline-none transition text-start"
+              />
+            </div>
+          </div>
+
+          <div id="addressFieldBox" class="p-3.5 rounded-xl border border-chalk-amber/50 bg-chalk-surface/80 transition">
+            <label for="custAddress" class="block text-xs sm:text-sm font-bold text-chalk-cream mb-1.5">
+              الحي أو العنوان الدقيق <span id="addressStar" class="text-chalk-amber">*</span>
+            </label>
+            <input
+              type="text"
+              id="custAddress"
+              oninput="state.customer.address = this.value; clearFieldError('custAddress');"
+              placeholder="الحي، الشارع، رقم العمارة أو معلم قريب..."
+              class="w-full bg-chalk-card border border-chalk-border focus:border-chalk-amber focus:ring-2 focus:ring-chalk-amber/20 rounded-xl py-2.5 px-3.5 text-sm text-chalk-cream placeholder-chalk-muted/70 outline-none transition"
+            />
+            <p id="addressHint" class="text-[11px] text-chalk-muted mt-1.5">
+              مطلوب في حالة التوصيل للمنزل.
+            </p>
+          </div>
+
+          <div>
+            <label for="generalOrderNotes" class="block text-xs sm:text-sm font-bold text-chalk-cream mb-1.5">
+              ملاحظات عامة على الطلب
+            </label>
+            <div class="flex flex-wrap gap-1.5 mb-2">
+              <button type="button" onclick="addQuickNote('زايد صوص')" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-chalk-surface hover:bg-amber-500/20 text-chalk-gold border border-chalk-border cursor-pointer transition">+ زايد صوص</button>
+              <button type="button" onclick="addQuickNote('بلا حار')" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-chalk-surface hover:bg-amber-500/20 text-chalk-gold border border-chalk-border cursor-pointer transition">+ بلا حار</button>
+              <button type="button" onclick="addQuickNote('طايب مزيان')" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-chalk-surface hover:bg-amber-500/20 text-chalk-gold border border-chalk-border cursor-pointer transition">+ طايب مزيان</button>
+              <button type="button" onclick="addQuickNote('مقطعة قطع متساوية')" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-chalk-surface hover:bg-amber-500/20 text-chalk-gold border border-chalk-border cursor-pointer transition">+ مقطعة قطع متساوية</button>
+            </div>
+            <textarea
+              id="generalOrderNotes"
+              rows="2"
+              oninput="state.generalNotes = this.value"
+              placeholder="أي ملاحظات إضافية للمطبخ أو الموزع..."
+              class="w-full bg-chalk-surface border border-chalk-border focus:border-chalk-amber focus:ring-2 focus:ring-chalk-amber/20 rounded-xl py-2.5 px-3.5 text-sm text-chalk-cream placeholder-chalk-muted/70 outline-none transition resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Live Order Summary & WhatsApp CTA -->
+        <div class="lg:col-span-5 bg-chalk-surface border border-chalk-border rounded-2xl p-4 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-chalk-border pb-2.5">
+              <span class="text-xs font-extrabold text-chalk-gold">ملخص الطلب</span>
+              <span id="summaryItemBadge" class="text-xs font-bold text-chalk-muted">0 عناصر</span>
+            </div>
+
+            <div id="inlineSummaryList" class="space-y-2.5 max-h-60 overflow-y-auto pl-1 text-sm">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="space-y-3 pt-3 border-t border-chalk-border">
+            <div class="space-y-1.5 text-xs sm:text-sm">
+              <div class="flex justify-between text-chalk-muted">
+                <span>المجموع الفرعي</span>
+                <span id="summarySubtotal" class="font-bold text-chalk-cream">0 د.م</span>
+              </div>
+              <div class="flex justify-between text-chalk-muted">
+                <span>رسوم التوصيل</span>
+                <span id="summaryDeliveryFee" class="font-bold text-chalk-gold">0 د.م</span>
+              </div>
+              <div class="flex justify-between text-base sm:text-lg font-extrabold pt-2 border-t border-chalk-border">
+                <span class="text-chalk-cream">المجموع الإجمالي</span>
+                <span id="summaryGrandTotal" class="text-chalk-gold">0 د.م</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onclick="sendOrderToWhatsApp()"
+              class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 active:scale-[0.99] text-white font-extrabold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2 transition cursor-pointer"
+            >
+              <span>📲</span>
+              <span>إرسال الطلب عبر واتساب</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Chalkboard Footer -->
+  <footer class="max-w-5xl mx-auto px-4 pt-8 pb-6 text-center space-y-2 border-t border-chalk-border/70 mt-10">
+    <p class="text-xl sm:text-2xl font-extrabold text-chalk-gold">
+      الأكل الزوين كيجمع الناس ♡
+    </p>
+    <p class="text-xs text-chalk-muted">
+      قائمة فاست فود • طازج • لذيذ • دائماً — واتساب مباشر:
+      <a
+        href="https://wa.me/212722082326"
+        target="_blank"
+        rel="noopener noreferrer"
+        dir="ltr"
+        class="text-chalk-gold font-bold hover:underline inline-block mr-1"
+      >
+        0722082326 (+212 722 082 326)
+      </a>
+    </p>
+  </footer>
+
+  <!-- Sticky Bottom Cart Bar -->
+  <div class="fixed bottom-0 inset-x-0 z-30 bg-chalk-surface/95 backdrop-blur-md border-t border-chalk-amber/30 shadow-2xl">
+    <div class="max-w-5xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+      <button
+        type="button"
+        onclick="openCartDrawer()"
+        class="flex-1 flex items-center justify-between bg-chalk-card hover:bg-chalk-cardHover text-chalk-cream px-3.5 py-2.5 rounded-xl border border-chalk-border transition cursor-pointer"
+      >
+        <div class="flex items-center gap-3">
+          <span class="relative inline-flex items-center justify-center w-9 h-9 rounded-lg bg-chalk-amber text-chalk-bg font-extrabold text-base">
+            🛒
+            <span id="stickyBadge" class="absolute -top-1.5 -left-1.5 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-[11px] font-extrabold flex items-center justify-center">
+              0
+            </span>
+          </span>
+          <div class="text-start">
+            <div class="text-xs sm:text-sm font-extrabold text-chalk-cream">عرض السلة والملخص</div>
+            <div id="stickySubtitle" class="text-[11px] text-chalk-muted">0 عناصر مختارة</div>
+          </div>
+        </div>
+        <div id="stickyTotal" class="text-sm sm:text-base font-extrabold text-chalk-gold">
+          0 د.م
+        </div>
+      </button>
+
+      <button
+        type="button"
+        onclick="sendOrderToWhatsApp()"
+        class="shrink-0 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-xl shadow-md flex items-center gap-1.5 transition cursor-pointer"
+      >
+        <span>واتساب</span>
+        <span aria-hidden="true">🚀</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="drawerBackdrop" onclick="closeCartDrawer()" class="hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-[2px] drawer-backdrop opacity-0"></div>
+  <aside
+    id="cartDrawer"
+    aria-modal="true"
+    aria-labelledby="drawerHeading"
+    class="drawer-panel closed fixed top-0 bottom-0 start-0 z-50 w-full max-w-md bg-chalk-card text-chalk-cream border-e border-chalk-border shadow-2xl flex flex-col"
+  >
+    <div class="p-4 bg-chalk-surface border-b border-chalk-border flex items-center justify-between">
+      <div>
+        <h2 id="drawerHeading" class="text-base sm:text-lg font-extrabold text-chalk-gold">سلة الطلبات</h2>
+        <p class="text-xs text-chalk-muted">راجع العناصر والملاحظات والمجموع</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          onclick="clearAllCart()"
+          class="text-xs font-bold px-2.5 py-1.5 rounded-lg bg-red-950/60 hover:bg-red-900/70 text-red-200 cursor-pointer"
+        >
+          مسح الكل
+        </button>
+        <button
+          type="button"
+          onclick="closeCartDrawer()"
+          aria-label="إغلاق السلة"
+          class="w-9 h-9 rounded-xl bg-chalk-card hover:bg-chalk-cardHover border border-chalk-border flex items-center justify-center text-chalk-cream font-bold cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <div id="drawerItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3 bg-chalk-bg/60">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="p-4 bg-chalk-surface border-t border-chalk-border space-y-3">
+      <div class="space-y-1.5 text-xs sm:text-sm">
+        <div class="flex justify-between text-chalk-muted">
+          <span>المجموع الفرعي</span>
+          <span id="drawerSubtotal" class="font-bold text-chalk-cream">0 د.م</span>
+        </div>
+        <div class="flex justify-between text-chalk-muted">
+          <span>رسوم التوصيل</span>
+          <span id="drawerDeliveryFee" class="font-bold text-chalk-gold">0 د.م</span>
+        </div>
+        <div class="flex justify-between text-base sm:text-lg font-extrabold pt-2 border-t border-chalk-border">
+          <span>المجموع الإجمالي</span>
+          <span id="drawerGrandTotal" class="text-chalk-gold">0 د.م</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onclick="sendOrderToWhatsApp()"
+        class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm sm:text-base shadow-lg flex items-center justify-center gap-2 transition cursor-pointer"
+      >
+        <span>📲</span>
+        <span>إرسال الطلب عبر واتساب</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Banner (No alert() used) -->
+  <div id="toastBox" role="status" aria-live="polite" class="hidden fixed top-5 inset-x-4 z-50 max-w-md mx-auto pointer-events-none">
+    <div class="bg-chalk-card text-chalk-cream border border-chalk-amber/70 rounded-xl px-4 py-3 shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm font-bold">
+      <span id="toastEmoji" class="text-base">🍔</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. CONSTANTS & EXACT MENU DATA FROM IMG_5060.jpeg (ARABIC + DIRHAM د.م)
+    // =========================================================================
+    const WHATSAPP_PHONE = '212722082326'; // 0722082326 in international format
+    const DELIVERY_FEE_AMOUNT = 150;
+
+    function getFallbackImage(categoryId) {
+      const labelMap = {
+        BURGERS: 'BURGER',
+        PIZZAS: 'PIZZA',
+        'FRIES & SIDES': 'FRIES',
+        WRAPS: 'WRAP',
+        DRINKS: 'DRINK'
+      };
+      const label = labelMap[categoryId] || 'FAST FOOD';
+      return `https://placehold.co/160x160/181818/fbbf24?text=${encodeURIComponent(label)}`;
+    }
+
+    const CATEGORIES = [
+      { id: 'ALL', label: 'الكل', icon: '✨' },
+      { id: 'BURGERS', label: 'البرغر', icon: '🍔' },
+      { id: 'PIZZAS', label: 'البيتزا', icon: '🍕' },
+      { id: 'FRIES & SIDES', label: 'البطاطس والمقبلات', icon: '🍟' },
+      { id: 'WRAPS', label: 'الراب', icon: '🌯' },
+      { id: 'DRINKS', label: 'المشروبات', icon: '🥤' }
+    ];
+
+    // Exact numbers from IMG_5060.jpeg formatted in Moroccan Dirham (د.م)
+    const MENU_ITEMS = [
+      // 1. البرغر (BURGERS)
+      {
+        id: 'classic-burger',
+        category: 'BURGERS',
+        name: 'برغر كلاسيك',
+        subtitle: 'Classic Burger',
+        variants: null,
+        price: 250,
+        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'chicken-burger',
+        category: 'BURGERS',
+        name: 'برغر دجاج',
+        subtitle: 'Chicken Burger',
+        variants: null,
+        price: 280,
+        image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'zinger-burger',
+        category: 'BURGERS',
+        name: 'برغر زينجر',
+        subtitle: 'Zinger Burger',
+        variants: null,
+        price: 320,
+        image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'cheese-burger',
+        category: 'BURGERS',
+        name: 'تشيز برغر',
+        subtitle: 'Cheese Burger',
+        variants: null,
+        price: 350,
+        image: 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'double-patty-burger',
+        category: 'BURGERS',
+        name: 'برغر مزدوج',
+        subtitle: 'Double Patty Burger',
+        variants: null,
+        price: 450,
+        image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=400&q=80'
+      },
+
+      // 2. البيتزا (PIZZAS)
+      {
+        id: 'regular-pizza',
+        category: 'PIZZAS',
+        name: 'بيتزا صغيرة / عادية',
+        subtitle: 'Regular Pizza — دجاج / خضار',
+        variants: ['دجاج', 'خضار'],
+        price: 650,
+        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'medium-pizza',
+        category: 'PIZZAS',
+        name: 'بيتزا متوسطة',
+        subtitle: 'Medium Pizza — دجاج / خضار',
+        variants: ['دجاج', 'خضار'],
+        price: 850,
+        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'large-pizza',
+        category: 'PIZZAS',
+        name: 'بيتزا كبيرة',
+        subtitle: 'Large Pizza — دجاج / خضار',
+        variants: ['دجاج', 'خضار'],
+        price: 1150,
+        image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'extra-large-pizza',
+        category: 'PIZZAS',
+        name: 'بيتزا إكسترا لارج',
+        subtitle: 'Extra Large Pizza — دجاج / خضار',
+        variants: ['دجاج', 'خضار'],
+        price: 1450,
+        image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4f?auto=format&fit=crop&w=400&q=80'
+      },
+
+      // 3. البطاطس والمقبلات (FRIES & SIDES)
+      {
+        id: 'french-fries-regular',
+        category: 'FRIES & SIDES',
+        name: 'بطاطس مقلية عادية',
+        subtitle: 'French Fries Regular',
+        variants: null,
+        price: 150,
+        image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'french-fries-large',
+        category: 'FRIES & SIDES',
+        name: 'بطاطس مقلية كبيرة',
+        subtitle: 'French Fries Large',
+        variants: null,
+        price: 220,
+        image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'loaded-fries',
+        category: 'FRIES & SIDES',
+        name: 'بطاطس لوديد',
+        subtitle: 'Loaded Fries',
+        variants: null,
+        price: 300,
+        image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'chicken-nuggets-6pcs',
+        category: 'FRIES & SIDES',
+        name: 'ناغتس دجاج 6 قطع',
+        subtitle: 'Chicken Nuggets 6 pcs',
+        variants: null,
+        price: 250,
+        image: 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'chicken-wings-6pcs',
+        category: 'FRIES & SIDES',
+        name: 'أجنحة دجاج 6 قطع',
+        subtitle: 'Chicken Wings 6 pcs',
+        variants: null,
+        price: 300,
+        image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'mozzarella-sticks-6pcs',
+        category: 'FRIES & SIDES',
+        name: 'أصابع موزاريلا 6 قطع',
+        subtitle: 'Mozzarella Sticks 6 pcs',
+        variants: null,
+        price: 280,
+        image: 'https://images.unsplash.com/photo-1548340748-6d2b7d7da280?auto=format&fit=crop&w=400&q=80'
+      },
+
+      // 4. الراب (WRAPS)
+      {
+        id: 'chicken-wrap',
+        category: 'WRAPS',
+        name: 'راب دجاج',
+        subtitle: 'Chicken Wrap',
+        variants: null,
+        price: 250,
+        image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'zinger-wrap',
+        category: 'WRAPS',
+        name: 'راب زينجر',
+        subtitle: 'Zinger Wrap',
+        variants: null,
+        price: 300,
+        image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'cheese-wrap',
+        category: 'WRAPS',
+        name: 'راب جبن',
+        subtitle: 'Cheese Wrap',
+        variants: null,
+        price: 320,
+        image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'bbq-wrap',
+        category: 'WRAPS',
+        name: 'راب باربكيو',
+        subtitle: 'BBQ Wrap',
+        variants: null,
+        price: 280,
+        image: 'https://images.unsplash.com/photo-1551782450-17144efb9c50?auto=format&fit=crop&w=400&q=80'
+      },
+
+      // 5. المشروبات (DRINKS)
+      {
+        id: 'cold-drink-can',
+        category: 'DRINKS',
+        name: 'مشروب غازي علبة',
+        subtitle: 'Cold Drink Can',
+        variants: null,
+        price: 100,
+        image: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'mineral-water',
+        category: 'DRINKS',
+        name: 'ماء معدني',
+        subtitle: 'Mineral Water',
+        variants: null,
+        price: 80,
+        image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'iced-tea',
+        category: 'DRINKS',
+        name: 'شاي مثلج',
+        subtitle: 'Iced Tea',
+        variants: null,
+        price: 150,
+        image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'mint-margarita',
+        category: 'DRINKS',
+        name: 'مينت مارغريتا',
+        subtitle: 'Mint Margarita',
+        variants: null,
+        price: 180,
+        image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'fresh-lime',
+        category: 'DRINKS',
+        name: 'حامض طازج',
+        subtitle: 'Fresh Lime',
+        variants: null,
+        price: 150,
+        image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'milkshake-cvs',
+        category: 'DRINKS',
+        name: 'ميلك شيك',
+        subtitle: 'Milkshake — شوكولاتة / فانيليا / فراولة',
+        variants: ['شوكولاتة', 'فانيليا', 'فراولة'],
+        price: 250,
+        image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        id: 'coffee',
+        category: 'DRINKS',
+        name: 'قهوة',
+        subtitle: 'Coffee',
+        variants: null,
+        price: 180,
+        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80'
+      }
+    ];
+
+    // =========================================================================
+    // 2. STATE MANAGEMENT
+    // =========================================================================
+    const state = {
+      activeCategory: 'ALL',
+      horizontalMode: 'grid', // 'grid' (horizontal row cards) | 'strip' (horizontal scroll strip)
+      searchQuery: '',
+      orderType: 'delivery', // 'delivery' | 'pickup'
+      deliveryFeeEnabled: true,
+      customer: {
+        name: '',
+        phone: '',
+        address: ''
+      },
+      generalNotes: '',
+      // itemId -> { qty: number, note: string, variant: string }
+      cart: {}
+    };
+
+    // =========================================================================
+    // 3. FORMATTING & TOTALS (MOROCCAN DIRHAM د.م)
+    // =========================================================================
+    function formatMad(amount) {
+      return `${Number(amount || 0).toLocaleString('en-US')} د.م`;
+    }
+
+    function computeTotals() {
+      let subtotal = 0;
+      let totalQty = 0;
+
+      for (const [itemId, entry] of Object.entries(state.cart)) {
+        if (!entry || entry.qty <= 0) continue;
+        const dish = MENU_ITEMS.find(d => d.id === itemId);
+        if (!dish) continue;
+        subtotal += dish.price * entry.qty;
+        totalQty += entry.qty;
+      }
+
+      const deliveryFee =
+        state.orderType === 'delivery' && state.deliveryFeeEnabled && totalQty > 0
+          ? DELIVERY_FEE_AMOUNT
+          : 0;
+
+      const grandTotal = subtotal + deliveryFee;
+      return { subtotal, deliveryFee, grandTotal, totalQty };
+    }
+
+    function escapeAttr(val) {
+      return String(val || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // =========================================================================
+    // 4. TOAST & FIELD VALIDATION HELPERS
+    // =========================================================================
+    let toastTimer = null;
+    function showToast(message, emoji = '🍔') {
+      try {
+        const box = document.getElementById('toastBox');
+        const msgEl = document.getElementById('toastMessage');
+        const emojiEl = document.getElementById('toastEmoji');
+        if (!box || !msgEl || !emojiEl) return;
+
+        msgEl.textContent = message;
+        emojiEl.textContent = emoji;
+        box.classList.remove('hidden');
+
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          box.classList.add('hidden');
+        }, 2500);
+      } catch (e) {
+        console.error('Toast error:', e);
+      }
+    }
+
+    function clearFieldError(inputId) {
+      const el = document.getElementById(inputId);
+      if (el) el.classList.remove('border-red-500');
+    }
+
+    // =========================================================================
+    // 5. ORDER TYPE, DELIVERY FEE & HORIZONTAL MODE CONTROLS
+    // =========================================================================
+    function setOrderType(type) {
+      if (type !== 'delivery' && type !== 'pickup') return;
+      state.orderType = type;
+
+      const btnDelivery = document.getElementById('btnOrderDelivery');
+      const btnPickup = document.getElementById('btnOrderPickup');
+      const badgeDelivery = document.getElementById('badgeDelivery');
+      const badgePickup = document.getElementById('badgePickup');
+      const addressStar = document.getElementById('addressStar');
+      const addressHint = document.getElementById('addressHint');
+      const addressFieldBox = document.getElementById('addressFieldBox');
+
+      if (type === 'delivery') {
+        btnDelivery.className = 'p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-amber bg-amber-500/10';
+        btnPickup.className = 'p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-border bg-chalk-surface/70 hover:border-chalk-amber/50';
+
+        badgeDelivery.className = 'w-5 h-5 rounded-full bg-chalk-amber text-chalk-bg text-xs font-extrabold flex items-center justify-center shrink-0';
+        badgePickup.className = 'w-5 h-5 rounded-full border border-zinc-600 text-transparent text-xs font-extrabold flex items-center justify-center shrink-0';
+
+        addressStar.textContent = '*';
+        addressHint.textContent = 'مطلوب في حالة التوصيل للمنزل.';
+        addressFieldBox.classList.add('border-chalk-amber/50');
+      } else {
+        btnPickup.className = 'p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-amber bg-amber-500/10';
+        btnDelivery.className = 'p-3.5 rounded-xl border-2 text-start transition flex items-center justify-between gap-3 cursor-pointer border-chalk-border bg-chalk-surface/70 hover:border-chalk-amber/50';
+
+        badgePickup.className = 'w-5 h-5 rounded-full bg-chalk-amber text-chalk-bg text-xs font-extrabold flex items-center justify-center shrink-0';
+        badgeDelivery.className = 'w-5 h-5 rounded-full border border-zinc-600 text-transparent text-xs font-extrabold flex items-center justify-center shrink-0';
+
+        addressStar.textContent = '';
+        addressHint.textContent = 'اختياري عند الاستلام من المحل.';
+        addressFieldBox.classList.remove('border-chalk-amber/50');
+      }
+
+      refreshOrderTypeTexts();
+      renderCartViews();
+    }
+
+    function handleDeliveryFeeToggle(checked) {
+      state.deliveryFeeEnabled = Boolean(checked);
+      refreshOrderTypeTexts();
+      renderCartViews();
+    }
+
+    function refreshOrderTypeTexts() {
+      const feeText = state.deliveryFeeEnabled ? formatMad(DELIVERY_FEE_AMOUNT) : '0 د.م (معفى)';
+      document.getElementById('deliveryFeeDisplay').textContent = formatMad(DELIVERY_FEE_AMOUNT);
+      document.getElementById('deliverySubText').textContent = `توصيل سريع وساخن • + ${feeText}`;
+    }
+
+    function setHorizontalMode(mode) {
+      if (mode !== 'grid' && mode !== 'strip') return;
+      state.horizontalMode = mode;
+
+      const btnGrid = document.getElementById('btnModeGrid');
+      const btnStrip = document.getElementById('btnModeStrip');
+
+      if (mode === 'grid') {
+        btnGrid.className = 'px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer brush-tag';
+        btnStrip.className = 'px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer text-chalk-muted hover:text-chalk-cream';
+      } else {
+        btnStrip.className = 'px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer brush-tag';
+        btnGrid.className = 'px-3 py-1.5 rounded-lg text-xs font-extrabold transition cursor-pointer text-chalk-muted hover:text-chalk-cream';
+      }
+
+      renderMenuSections();
+    }
+
+    // =========================================================================
+    // 6. CATEGORY TABS, SEARCH & HORIZONTAL MENU RENDERING
+    // =========================================================================
+    function renderCategoryTabs() {
+      const container = document.getElementById('categoryTabs');
+      if (!container) return;
+
+      container.innerHTML = CATEGORIES.map(cat => {
+        const active = state.activeCategory === cat.id;
+        const cls = active
+          ? 'brush-tag font-extrabold'
+          : 'bg-chalk-card text-chalk-muted hover:text-chalk-cream border border-chalk-border font-bold';
+
+        return `
+          <button
+            type="button"
+            role="tab"
+            aria-selected="${active}"
+            onclick="selectCategory('${cat.id}')"
+            class="shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer ${cls}"
+          >
+            <span aria-hidden="true">${cat.icon}</span>
+            <span>${cat.label}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategory(catId) {
+      state.activeCategory = catId;
+      renderCategoryTabs();
+      renderMenuSections();
+    }
+
+    function handleSearchInput(value) {
+      state.searchQuery = (value || '').trim().toLowerCase();
+      const clearBtn = document.getElementById('btnClearSearch');
+      if (clearBtn) clearBtn.classList.toggle('hidden', state.searchQuery.length === 0);
+      renderMenuSections();
+    }
+
+    function clearSearchInput() {
+      const input = document.getElementById('searchInput');
+      if (input) input.value = '';
+      handleSearchInput('');
+    }
+
+    function renderHorizontalDishCard(item, isStrip = false) {
+      const entry = state.cart[item.id] || { qty: 0, note: '', variant: item.variants ? item.variants[0] : '' };
+      const qty = entry.qty;
+      const selectedVariant = entry.variant || (item.variants ? item.variants[0] : '');
+      const fallbackSrc = getFallbackImage(item.category);
+      const widthClass = isStrip ? 'w-80 sm:w-96 shrink-0' : 'w-full';
+
+      const variantSelectorHtml = item.variants ? `
+        <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+          ${item.variants.map(v => {
+            const isSel = selectedVariant === v;
+            return `
+              <button
+                type="button"
+                onclick="selectDishVariant('${item.id}', '${escapeAttr(v)}')"
+                class="px-2 py-0.5 rounded-md text-[11px] font-bold border transition cursor-pointer ${
+                  isSel
+                    ? 'bg-chalk-amber text-chalk-bg border-chalk-amber'
+                    : 'bg-chalk-surface text-chalk-muted border-chalk-border hover:text-chalk-cream'
+                }"
+              >
+                ${v}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      ` : '';
+
+      return `
+        <article class="dish-card ${widthClass} bg-chalk-card hover:bg-chalk-cardHover border ${qty > 0 ? 'border-chalk-amber' : 'border-chalk-border'} rounded-2xl p-3 shadow-md flex flex-col justify-between gap-2.5">
+          <!-- Horizontal Row: Small Square Thumbnail + Title/Subtitle/Price -->
+          <div class="flex items-center gap-3">
+            <img
+              src="${item.image}"
+              alt="${escapeAttr(item.name)}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='${fallbackSrc}';"
+              class="food-img w-16 h-16 sm:w-[70px] sm:h-[70px] rounded-xl object-cover shrink-0 border border-chalk-border bg-chalk-surface"
+            />
+            <div class="min-w-0 flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="font-extrabold text-sm text-chalk-cream leading-tight truncate">
+                  ${item.name}
+                </h3>
+                <span class="brush-tag px-2 py-0.5 text-xs font-extrabold shrink-0" dir="ltr">
+                  ${formatMad(item.price)}
+                </span>
+              </div>
+              ${item.subtitle ? `<p class="text-[11px] text-chalk-muted truncate mt-0.5">${item.subtitle}</p>` : ''}
+              ${variantSelectorHtml}
+            </div>
+          </div>
+
+          <!-- Horizontal Controls Row: Add / Qty +/- + Per-Item Note -->
+          <div class="pt-2 border-t border-chalk-border/60 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              ${qty === 0 ? `
+                <button
+                  type="button"
+                  onclick="updateItemQty('${item.id}', 1)"
+                  class="w-full py-1.5 px-3 rounded-xl bg-chalk-amber hover:bg-chalk-gold text-chalk-bg font-extrabold text-xs transition flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <span>+ إضافة للطلب</span>
+                </button>
+              ` : `
+                <div class="flex items-center justify-between w-full bg-chalk-surface border border-chalk-amber/50 rounded-xl p-1">
+                  <button
+                    type="button"
+                    onclick="updateItemQty('${item.id}', -1)"
+                    aria-label="إنقاص الكمية"
+                    class="w-8 h-7 rounded-lg bg-chalk-card hover:bg-red-950 text-chalk-gold font-extrabold text-base flex items-center justify-center cursor-pointer"
+                  >
+                    −
+                  </button>
+                  <span class="font-extrabold text-xs sm:text-sm text-chalk-cream px-2">${qty}</span>
+                  <button
+                    type="button"
+                    onclick="updateItemQty('${item.id}', 1)"
+                    aria-label="زيادة الكمية"
+                    class="w-8 h-7 rounded-lg bg-chalk-amber hover:bg-chalk-gold text-chalk-bg font-extrabold text-base flex items-center justify-center cursor-pointer"
+                  >
+                    +
+                  </button>
+                </div>
+              `}
+            </div>
+
+            ${qty > 0 ? `
+              <input
+                type="text"
+                value="${escapeAttr(entry.note)}"
+                oninput="updateDishNote('${item.id}', this.value)"
+                placeholder="ملاحظة على الطبق (بلا حار، زايد صوص...)"
+                class="w-full text-xs bg-chalk-surface border border-chalk-border focus:border-chalk-amber rounded-lg px-2.5 py-1.5 text-chalk-cream placeholder-chalk-muted/70 outline-none transition"
+              />
+            ` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMenuSections() {
+      const container = document.getElementById('menuSectionsContainer');
+      if (!container) return;
+
+      const filteredItems = MENU_ITEMS.filter(item => {
+        const catMatch = state.activeCategory === 'ALL' || item.category === state.activeCategory;
+        if (!catMatch) return false;
+        if (!state.searchQuery) return true;
+
+        const hay = `${item.name} ${item.subtitle || ''} ${item.category}`.toLowerCase();
+        return hay.includes(state.searchQuery);
+      });
+
+      if (filteredItems.length === 0) {
+        container.innerHTML = `
+          <div class="bg-chalk-card border border-chalk-border rounded-2xl p-8 text-center text-chalk-muted text-sm font-bold">
+            لا توجد أطباق مطابقة لبحثك. جرّب كلمة أخرى أو قسماً آخر.
+          </div>`;
+        return;
+      }
+
+      const isStrip = state.horizontalMode === 'strip';
+      const layoutClass = isStrip
+        ? 'flex flex-row items-stretch gap-3.5 overflow-x-auto no-scrollbar pb-2'
+        : 'grid grid-cols-1 md:grid-cols-2 gap-3.5';
+
+      const orderedCats = CATEGORIES.filter(c => c.id !== 'ALL');
+      const sectionsHtml = orderedCats
+        .map(cat => {
+          const itemsInCat = filteredItems.filter(i => i.category === cat.id);
+          if (itemsInCat.length === 0) return '';
+
+          const cardsHtml = itemsInCat.map(item => renderHorizontalDishCard(item, isStrip)).join('');
+
+          return `
+            <div class="space-y-3">
+              <div class="flex items-center gap-2.5">
+                <span class="brush-tag px-3 py-1 text-xs sm:text-sm font-extrabold">
+                  ${cat.icon} ${cat.label}
+                </span>
+                <span class="h-px flex-1 bg-chalk-border"></span>
+              </div>
+              <div class="${layoutClass}">
+                ${cardsHtml}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
+      container.innerHTML = sectionsHtml;
+    }
+
+    // =========================================================================
+    // 7. CART, VARIANT & NOTE MUTATIONS
+    // =========================================================================
+    function selectDishVariant(itemId, variantName) {
+      const dish = MENU_ITEMS.find(d => d.id === itemId);
+      if (!dish) return;
+      const current = state.cart[itemId] || { qty: 0, note: '', variant: dish.variants ? dish.variants[0] : '' };
+      state.cart[itemId] = { ...current, variant: variantName };
+      renderMenuSections();
+      renderCartViews();
+    }
+
+    function updateItemQty(itemId, delta) {
+      const dish = MENU_ITEMS.find(d => d.id === itemId);
+      if (!dish) return;
+
+      const current = state.cart[itemId] || { qty: 0, note: '', variant: dish.variants ? dish.variants[0] : '' };
+      const nextQty = Math.max(0, current.qty + delta);
+
+      if (nextQty === 0) {
+        delete state.cart[itemId];
+      } else {
+        state.cart[itemId] = {
+          qty: nextQty,
+          note: current.note || '',
+          variant: current.variant || (dish.variants ? dish.variants[0] : '')
+        };
+        if (delta > 0 && current.qty === 0) {
+          showToast(`تمت إضافة "${dish.name}" (${formatMad(dish.price)})`, '🔥');
+        }
+      }
+
+      renderMenuSections();
+      renderCartViews();
+    }
+
+    function updateDishNote(itemId, noteVal) {
+      if (!state.cart[itemId]) return;
+      state.cart[itemId].note = noteVal;
+      renderCartViews();
+    }
+
+    function addQuickNote(noteText) {
+      const ta = document.getElementById('generalOrderNotes');
+      if (!ta) return;
+      const existing = (ta.value || '').trim();
+      const parts = existing ? existing.split('،').map(s => s.trim()).filter(Boolean) : [];
+      if (!parts.includes(noteText)) {
+        parts.push(noteText);
+      }
+      const next = parts.join('، ');
+      ta.value = next;
+      state.generalNotes = next;
+    }
+
+    function clearAllCart() {
+      state.cart = {};
+      renderMenuSections();
+      renderCartViews();
+      showToast('تم إفراغ سلة الطلبات.', '🗑️');
+    }
+
+    // =========================================================================
+    // 8. RENDER INLINE SUMMARY, DRAWER & STICKY BAR
+    // =========================================================================
+    function renderCartViews() {
+      const { subtotal, deliveryFee, grandTotal, totalQty } = computeTotals();
+
+      document.getElementById('stickyBadge').textContent = totalQty;
+      document.getElementById('stickySubtitle').textContent = `${totalQty} ${totalQty === 1 ? 'عنصر مختار' : 'عناصر مختارة'}`;
+      document.getElementById('stickyTotal').textContent = formatMad(grandTotal);
+
+      document.getElementById('summaryItemBadge').textContent = `${totalQty} ${totalQty === 1 ? 'عنصر' : 'عناصر'}`;
+      document.getElementById('summarySubtotal').textContent = formatMad(subtotal);
+      document.getElementById('summaryDeliveryFee').textContent = formatMad(deliveryFee);
+      document.getElementById('summaryGrandTotal').textContent = formatMad(grandTotal);
+
+      document.getElementById('drawerSubtotal').textContent = formatMad(subtotal);
+      document.getElementById('drawerDeliveryFee').textContent = formatMad(deliveryFee);
+      document.getElementById('drawerGrandTotal').textContent = formatMad(grandTotal);
+
+      const inlineList = document.getElementById('inlineSummaryList');
+      const drawerList = document.getElementById('drawerItemsContainer');
+      const activeEntries = Object.entries(state.cart).filter(([, e]) => e && e.qty > 0);
+
+      if (activeEntries.length === 0) {
+        const emptyMsg = `<p class="text-xs text-chalk-muted py-4 text-center">السلة فارغة حالياً. اضغط على "+ إضافة للطلب" لاختيار وجباتك.</p>`;
+        inlineList.innerHTML = emptyMsg;
+        drawerList.innerHTML = `<div class="bg-chalk-card border border-chalk-border rounded-2xl p-6 text-center text-xs sm:text-sm text-chalk-muted">${emptyMsg}</div>`;
+        return;
+      }
+
+      inlineList.innerHTML = activeEntries.map(([itemId, entry]) => {
+        const dish = MENU_ITEMS.find(d => d.id === itemId);
+        if (!dish) return '';
+        const lineTotal = dish.price * entry.qty;
+        const variantBadge = entry.variant ? ` (${entry.variant})` : '';
+        return `
+          <div class="flex items-start justify-between gap-2 pb-2 border-b border-chalk-border/70 last:border-b-0">
+            <div class="min-w-0">
+              <div class="font-bold text-chalk-cream truncate">
+                <span class="text-chalk-gold">${entry.qty}×</span> ${dish.name}${variantBadge}
+              </div>
+              ${entry.note ? `<div class="text-[11px] text-chalk-amber truncate">ملاحظة: ${escapeAttr(entry.note)}</div>` : ''}
+            </div>
+            <span class="font-bold text-chalk-cream shrink-0" dir="ltr">${formatMad(lineTotal)}</span>
+          </div>
+        `;
+      }).join('');
+
+      drawerList.innerHTML = activeEntries.map(([itemId, entry]) => {
+        const dish = MENU_ITEMS.find(d => d.id === itemId);
+        if (!dish) return '';
+        const lineTotal = dish.price * entry.qty;
+        const variantBadge = entry.variant ? ` • ${entry.variant}` : '';
+        return `
+          <div class="bg-chalk-card border border-chalk-border rounded-2xl p-3.5 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="font-extrabold text-sm text-chalk-cream truncate">${dish.name}${variantBadge}</div>
+                <div class="text-xs font-bold text-chalk-gold" dir="ltr">${formatMad(lineTotal)}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onclick="updateItemQty('${dish.id}', -1)"
+                  class="w-8 h-8 rounded-lg bg-chalk-surface hover:bg-red-950 text-chalk-gold font-extrabold cursor-pointer"
+                >−</button>
+                <span class="w-6 text-center font-extrabold text-sm">${entry.qty}</span>
+                <button
+                  type="button"
+                  onclick="updateItemQty('${dish.id}', 1)"
+                  class="w-8 h-8 rounded-lg bg-chalk-amber hover:bg-chalk-gold text-chalk-bg font-extrabold cursor-pointer"
+                >+</button>
+              </div>
+            </div>
+            <input
+              type="text"
+              value="${escapeAttr(entry.note)}"
+              oninput="updateDishNote('${dish.id}', this.value)"
+              placeholder="ملاحظة على الطبق (بلا حار، زايد صوص...)"
+              class="w-full text-xs bg-chalk-surface border border-chalk-border focus:border-chalk-amber rounded-lg px-2.5 py-1.5 text-chalk-cream placeholder-chalk-muted/70 outline-none"
+            />
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 9. SLIDE-OVER DRAWER CONTROLS
+    // =========================================================================
+    function openCartDrawer() {
+      const backdrop = document.getElementById('drawerBackdrop');
+      const drawer = document.getElementById('cartDrawer');
+      backdrop.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        drawer.classList.remove('closed');
+        drawer.classList.add('open');
+      });
+    }
+
+    function closeCartDrawer() {
+      const backdrop = document.getElementById('drawerBackdrop');
+      const drawer = document.getElementById('cartDrawer');
+      backdrop.classList.add('opacity-0');
+      drawer.classList.remove('open');
+      drawer.classList.add('closed');
+      setTimeout(() => {
+        backdrop.classList.add('hidden');
+      }, 250);
+    }
+
+    // =========================================================================
+    // 10. WHATSAPP ORDER FORMATTING & DISPATCH (212722082326 / 0722082326)
+    // =========================================================================
+    function sendOrderToWhatsApp() {
+      try {
+        const { subtotal, deliveryFee, grandTotal, totalQty } = computeTotals();
+
+        const nameVal = (document.getElementById('custName')?.value || '').trim();
+        const phoneVal = (document.getElementById('custPhone')?.value || '').trim();
+        const addressVal = (document.getElementById('custAddress')?.value || '').trim();
+        const notesVal = (document.getElementById('generalOrderNotes')?.value || '').trim();
+
+        state.customer.name = nameVal;
+        state.customer.phone = phoneVal;
+        state.customer.address = addressVal;
+        state.generalNotes = notesVal;
+
+        if (totalQty === 0) {
+          showToast('المرجو إضافة وجبة واحدة على الأقل قبل إرسال الطلب.', '🛒');
+          return;
+        }
+
+        if (!nameVal) {
+          const el = document.getElementById('custName');
+          el?.classList.add('border-red-500');
+          el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el?.focus();
+          showToast('المرجو إدخال الاسم الكامل.', '⚠️');
+          return;
+        }
+
+        const digitsOnly = phoneVal.replace(/\D/g, '');
+        if (digitsOnly.length < 8) {
+          const el = document.getElementById('custPhone');
+          el?.classList.add('border-red-500');
+          el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el?.focus();
+          showToast('المرجو إدخال رقم هاتف صحيح.', '⚠️');
+          return;
+        }
+
+        if (state.orderType === 'delivery' && !addressVal) {
+          const el = document.getElementById('custAddress');
+          el?.classList.add('border-red-500');
+          el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el?.focus();
+          showToast('المرجو إدخال الحي أو العنوان الدقيق للتوصيل.', '📍');
+          return;
+        }
+
+        const orderTypeLabel =
+          state.orderType === 'delivery'
+            ? 'التوصيل للمنزل (Livraison)'
+            : 'الاستلام من المحل (À emporter)';
+
+        const lines = [
+          '🍔 *طلب جديد — قائمة فاست فود* 🍔',
+          '_طازج • لذيذ • دائماً_',
+          '',
+          `*نوع الطلب:* ${orderTypeLabel}`,
+          '',
+          '*معلومات الزبون:*',
+          `• الاسم: ${nameVal}`,
+          `• الهاتف: ${phoneVal}`
+        ];
+
+        if (addressVal) {
+          lines.push(`• العنوان / الحي: ${addressVal}`);
+        }
+
+        lines.push('', '*تفاصيل الطلب:*');
+
+        for (const [itemId, entry] of Object.entries(state.cart)) {
+          if (!entry || entry.qty <= 0) continue;
+          const dish = MENU_ITEMS.find(d => d.id === itemId);
+          if (!dish) continue;
+          const linePrice = dish.price * entry.qty;
+          const variantText = entry.variant ? ` [${entry.variant}]` : '';
+          lines.push(`• ${entry.qty}× ${dish.name}${variantText} — ${formatMad(linePrice)}`);
+          if (entry.note && entry.note.trim()) {
+            lines.push(`   📝 ملاحظة: ${entry.note.trim()}`);
+          }
+        }
+
+        if (notesVal) {
+          lines.push('', `*ملاحظات عامة:* ${notesVal}`);
+        }
+
+        lines.push(
+          '',
+          '----------------------------',
+          `المجموع الفرعي: ${formatMad(subtotal)}`,
+          `رسوم التوصيل: ${formatMad(deliveryFee)}`,
+          `💰 *المجموع الإجمالي: ${formatMad(grandTotal)}*`
+        );
+
+        const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(lines.join('\n'))}`;
+        showToast('جاري فتح واتساب لإرسال طلبك...', '📲');
+        closeCartDrawer();
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      } catch (err) {
+        console.error('WhatsApp order error:', err);
+        showToast('تعذر تجهيز رسالة واتساب. المرجو المحاولة مرة أخرى.', '⚠️');
+      }
+    }
+
+    // =========================================================================
+    // 11. INITIALIZATION
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryTabs();
+      setOrderType('delivery');
+      setHorizontalMode('grid');
+      refreshOrderTypeTexts();
+      renderMenuSections();
+      renderCartViews();
+    });
+  </script>
+</body>
+</html>
